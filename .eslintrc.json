@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-console": "off",
+    "no-invalid-this":"off"
+  },
+//  "extends": ["eslint:recommended", "google", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  }
+}
