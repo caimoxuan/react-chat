@@ -62,3 +62,6 @@ dist/
 
 # jsDoc path
 out
+
+#other
+.idea

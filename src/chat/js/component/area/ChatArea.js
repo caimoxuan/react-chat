@@ -17,8 +17,15 @@ export default class ChatArea extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
+        //将滚动条置底
+        this.scroll.scrollTop = this.scroll.scrollHeight;
+    }
 
+    sendMessage = (e) => {
+        if(e.keyCode == 13){
+            this.addMessage();
+        }
     }
 
     addMessage = ()=> {
@@ -27,9 +34,6 @@ export default class ChatArea extends React.Component {
         let infoList = this.state.info;
         infoList.push(info_t);
         this.setState({info: infoList});
-        //将滚动条置底
-        this.scroll.scrollTop = this.scroll.scrollHeight + 300;
-        console.log(this.scroll.scrollHeight);
     }
 
 
@@ -50,6 +54,7 @@ export default class ChatArea extends React.Component {
                         placeholder="请输入聊天信息"
                         rows="4"
                         className="my_textarea resize-no"
+                        onKeyDown={this.sendMessage}
                     ></textarea>
                     <div onClick={this.addMessage}>发送</div>
                 </div>
