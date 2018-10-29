@@ -19,8 +19,8 @@ export default class Avatar extends React.Component {
      */
     handleClick(e) {
         let {userName, mode, addExpression, getUserInfo} = this.props;
-        alert(mode);
         mode = mode === 'left' ? 'menu' : 'profile';
+        alert("handleClick: " + addExpression);
         if (e.shiftKey) {
             userName === '' ? null : addExpression('@' + userName + ' ');
         } else {
