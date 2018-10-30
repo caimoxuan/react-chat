@@ -1,6 +1,7 @@
 import React from 'react'
 
 import TextMessage from '../message/TextMessage';
+import UserList from '../user/UserList';
 
 import '../../../css/common/scroll.less';
 import '../../../css/chat/chat_window.less';
@@ -10,7 +11,6 @@ export default class ChatArea extends React.Component {
     constructor(props) {
         super(props);
         this.users = [{userId: 1, userName: "user@1"}, {userId: 2, userName: "user@2"}];
-        this.chater = {id: 1001, name: "user1", message: "测试信息"}
         this.state = {
             info: [],
             scrollHeight: 0,
@@ -57,7 +57,10 @@ export default class ChatArea extends React.Component {
 
     render() {
         return (
-            <div className="chat_plane">
+            <div className="chat_panel">
+                <div className="list_panel">
+                    <UserList/>
+                </div>
                 <div className="chat_window">
                     <div style={style.messageBar} ref={node => this.scroll = node}>
                         {
