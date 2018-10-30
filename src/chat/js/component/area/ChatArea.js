@@ -1,8 +1,9 @@
 import React from 'react'
 
-import TextMessage from "../message/TextMessage";
+import TextMessage from '../message/TextMessage';
 
-import "../../../css/common/scroll.less";
+import '../../../css/common/scroll.less';
+import '../../../css/chat/chat_window.less';
 
 export default class ChatArea extends React.Component {
 
@@ -14,7 +15,7 @@ export default class ChatArea extends React.Component {
             info: [],
             scrollHeight: 0,
             scroll: {},
-            textContent:'',
+            textContent: '',
         };
     }
 
@@ -24,54 +25,63 @@ export default class ChatArea extends React.Component {
     }
 
     sendMessage = (e) => {
-        if (13 == e.keyCode && e.ctrlKey){
+        if (13 == e.keyCode && e.ctrlKey) {
             let text = this.state.textContent;
-            text +=`&;#13;&;#10;`
+            text += `&;#13;&;#10;`
             this.setState({textContent: text});
             return;
         }
 
-        if(e.keyCode == 13){
+        if (e.keyCode == 13) {
             this.addMessage()
         }
 
     }
 
-    addMessage = ()=> {
-        let dir = Math.random() < 0.5 ? "right":"left";
-        let m =  this.state.textContent;
-        let info_t = {userName: "cmx", userId: new Date().getTime(), dir: dir, timestamp: new Date().getTime(), isLoading: true, sex: 0, message: m ? m : 'test'}
+    addMessage = () => {
+        let dir = Math.random() < 0.5 ? "right" : "left";
+        let m = this.state.textContent;
+        let info_t = {
+            userName: "cmx",
+            userId: new Date().getTime(),
+            dir: dir,
+            timestamp: new Date().getTime(),
+            isLoading: true,
+            sex: 0,
+            message: m ? m : 'test'
+        }
         let infoList = this.state.info;
         infoList.push(info_t);
-        this.setState({info: infoList,textContent:''});
+        this.setState({info: infoList, textContent: ''});
     }
 
     render() {
         return (
-            <div className="test_d">
-                <div style={style.messageBar} ref={node => this.scroll = node}>
-                    {
-                        this.state.info.map(value => (
-                            <TextMessage key={value.userId} content={value.message} info={value}/>
-                        ))
-                    }
-                </div>
-                <div className="chat_send_head">
-                </div>
-                <div className="chat_send_content" >
+            <div className="chat_plane">
+                <div className="chat_window">
+                    <div style={style.messageBar} ref={node => this.scroll = node}>
+                        {
+                            this.state.info.map(value => (
+                                <TextMessage key={value.userId} content={value.message} info={value}/>
+                            ))
+                        }
+                    </div>
+                    <div className="chat_send_head">
+                        <div className="chat_send_button" onClick={this.addMessage}>发送</div>
+                    </div>
+                    <div className="chat_send_content">
                     <textarea
                         value={this.state.textContent.trim()}
                         placeholder="请输入聊天信息"
                         rows="4"
                         className="my_textarea resize-no"
-                        onChange={(e)=>{
-                            this.setState({textContent:e.target.value})
+                        onChange={(e) => {
+                            this.setState({textContent: e.target.value})
                         }}
                         onKeyDown={this.sendMessage}
                     ></textarea>
-                    <div onClick={this.addMessage}>发送</div>
+                    </div>
                 </div>
-
             </div>
         )
     }
@@ -79,8 +89,9 @@ export default class ChatArea extends React.Component {
 
 const style = {
     messageBar: {
-        width:'100%',
-        height: '300px',
-        overflowY: 'scroll'
+        width: '100%',
+        height: window.innerHeight - 300,
+        overflowY: 'scroll',
+        padding: '5px',
     }
 }
