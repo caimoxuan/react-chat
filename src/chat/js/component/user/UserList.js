@@ -7,9 +7,10 @@ export default class UserList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            uList:[{userId: '123', userName: "测试人员1"},{userId: '234', userName: '测试人员2'}],
+            uList:[{userId: '123', userName: "测试人员1asdasdasdasdasdasdsa"},{userId: '234', userName: '测试人员2'}],
         }
     }
+
 
 
 

@@ -25,10 +25,13 @@ export default class ChatArea extends React.Component {
     }
 
     sendMessage = (e) => {
+
         if (13 == e.keyCode && e.ctrlKey) {
             let text = this.state.textContent;
-            text += `&;#13;&;#10;`
             this.setState({textContent: text});
+            return;
+        }
+        if(this.state.textContent.trim() == ''){
             return;
         }
 
@@ -82,7 +85,7 @@ export default class ChatArea extends React.Component {
                             this.setState({textContent: e.target.value})
                         }}
                         onKeyDown={this.sendMessage}
-                    ></textarea>
+                    />
                     </div>
                 </div>
             </div>

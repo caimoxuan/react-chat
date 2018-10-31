@@ -16,6 +16,10 @@ export default class UserInlineBox extends React.Component {
         }
     }
 
+    handlerClick = () => {
+        console.log(this.state.userId);
+    }
+
     handlerAvatar(){
         if(this.state.avatar){
             return this.state.avatar;
@@ -25,7 +29,7 @@ export default class UserInlineBox extends React.Component {
 
     render(){
         return(
-            <div className="user_inline_box">
+            <div className="user_inline_box" onClick={this.handlerClick}>
                 <img src={this.handlerAvatar()} />
                 {this.state.userName}
             </div>
