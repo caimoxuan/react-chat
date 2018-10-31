@@ -1,4 +1,5 @@
 import React from 'react'
+import {message} from 'antd';
 
 import TextMessage from '../message/TextMessage';
 import UserList from '../user/UserList';
@@ -16,12 +17,36 @@ export default class ChatArea extends React.Component {
             scrollHeight: 0,
             scroll: {},
             textContent: '',
+            score: 1,
+            webSocket: {},
         };
     }
 
     componentDidUpdate() {
         //将滚动条置底
         this.scroll.scrollTop = this.scroll.scrollHeight;
+    }
+
+    componentDidMount() {
+        this.state.webSocket = new WebSocket("ws://localhost:8888/")
+        this.state.webSocket.onerror = function(e){
+            message.error("can not connect to server!");
+        }
+    }
+
+
+
+
+    onMessage = () => {
+        console.log("find message");
+        let messageId = 'test-'+(this.state.score - 1);
+        this.state.info.forEach((value, index) => {
+            if(value.messageId == messageId){
+                let _info = this.state.info;
+                _info[index].isLoading = false;
+                this.setState({info: _info});
+            }
+        })
     }
 
     sendMessage = (e) => {
@@ -47,12 +72,14 @@ export default class ChatArea extends React.Component {
         let info_t = {
             userName: "cmx",
             userId: new Date().getTime(),
+            messageId: 'test-'+ this.state.score,
             dir: dir,
             timestamp: new Date().getTime(),
             isLoading: true,
             sex: 0,
             message: m ? m : 'test'
         }
+        this.setState({score: this.state.score + 1})
         let infoList = this.state.info;
         infoList.push(info_t);
         this.setState({info: infoList, textContent: ''});
@@ -74,6 +101,7 @@ export default class ChatArea extends React.Component {
                     </div>
                     <div className="chat_send_head">
                         <div className="chat_send_button" onClick={this.addMessage}>发送</div>
+                        <div className="chat_send_button" onClick={this.onMessage}>调试</div>
                     </div>
                     <div className="chat_send_content">
                     <textarea
@@ -99,5 +127,6 @@ const style = {
         height: window.innerHeight - 300,
         overflowY: 'scroll',
         padding: '5px',
+        boxShadow: 'inset 0 0 3px 3px #ccc',
     }
 }
