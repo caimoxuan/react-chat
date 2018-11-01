@@ -3,6 +3,7 @@ import {message} from 'antd';
 
 import TextMessage from '../message/TextMessage';
 import UserList from '../user/UserList';
+import config from '../../config/PropertiesConfig';
 
 import '../../../css/common/scroll.less';
 import '../../../css/chat/chat_window.less';
@@ -28,7 +29,7 @@ export default class ChatArea extends React.Component {
     }
 
     componentDidMount() {
-        this.state.webSocket = new WebSocket("ws://localhost:7397")
+        this.state.webSocket = new WebSocket(config.chatSocketServerAddress);
         this.state.webSocket.onerror = function(e){
             message.error("can not connect to server!");
         }
@@ -72,7 +73,6 @@ export default class ChatArea extends React.Component {
         if (e.keyCode == 13) {
             this.addMessage()
         }
-
     }
 
     addMessage = () => {
