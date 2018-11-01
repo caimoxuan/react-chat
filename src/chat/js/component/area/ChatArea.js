@@ -28,26 +28,35 @@ export default class ChatArea extends React.Component {
     }
 
     componentDidMount() {
-        this.state.webSocket = new WebSocket("ws://localhost:8888/")
+        this.state.webSocket = new WebSocket("ws://localhost:7397")
         this.state.webSocket.onerror = function(e){
             message.error("can not connect to server!");
         }
+
+        this.state.webSocket.onopen = () => {
+            message.success("success connect to server!");
+            var data={"msgId":(new Date()).getTime(),"messageType":"LOGIN", "timeStamp":(new Date()).getTime(),"msgContext":"react user coming!", "sendUser":888};
+            var login = JSON.stringify(data);
+            this.state.webSocket.send(login)
+        }
+
+        this.state.webSocket.onmessage = (event) => {
+            let jsonMessage = JSON.parse(event.data);
+            this.state.info.forEach((value, index) => {
+                if(jsonMessage.msgId == value.msgId){
+                    let _info = this.state.info;
+                    _info[index].isLoading = false;
+                    this.setState({info: _info});
+                }
+            })
+        }
+
+        this.state.webSocket.onclose = (event) => {
+            console.log("WebSocket is closed");
+        };
+
     }
 
-
-
-
-    onMessage = () => {
-        console.log("find message");
-        let messageId = 'test-'+(this.state.score - 1);
-        this.state.info.forEach((value, index) => {
-            if(value.messageId == messageId){
-                let _info = this.state.info;
-                _info[index].isLoading = false;
-                this.setState({info: _info});
-            }
-        })
-    }
 
     sendMessage = (e) => {
 
@@ -67,18 +76,20 @@ export default class ChatArea extends React.Component {
     }
 
     addMessage = () => {
-        let dir = Math.random() < 0.5 ? "right" : "left";
         let m = this.state.textContent;
         let info_t = {
             userName: "cmx",
             userId: new Date().getTime(),
-            messageId: 'test-'+ this.state.score,
-            dir: dir,
+            sendUser: 888,
+            msgId: this.state.score,
+            dir: 'right',
             timestamp: new Date().getTime(),
             isLoading: true,
             sex: 0,
-            message: m ? m : 'test'
+            messageType: 'USER',
+            msgContext: m ? m : 'test'
         }
+        this.state.webSocket.send(JSON.stringify(info_t))
         this.setState({score: this.state.score + 1})
         let infoList = this.state.info;
         infoList.push(info_t);
@@ -95,13 +106,12 @@ export default class ChatArea extends React.Component {
                     <div style={style.messageBar} ref={node => this.scroll = node}>
                         {
                             this.state.info.map(value => (
-                                <TextMessage key={value.userId} content={value.message} info={value}/>
+                                <TextMessage key={value.msgId} content={value.msgContext} info={value}/>
                             ))
                         }
                     </div>
                     <div className="chat_send_head">
                         <div className="chat_send_button" onClick={this.addMessage}>发送</div>
-                        <div className="chat_send_button" onClick={this.onMessage}>调试</div>
                     </div>
                     <div className="chat_send_content">
                     <textarea
