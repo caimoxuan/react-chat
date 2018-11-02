@@ -20,11 +20,11 @@ class PhoneLogin extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let form = {'phone': values['phone'],
+                let form = {'username': values['phone'],
                     'password': values['password'],
                     'type': 'phone'};
-                alert(form.password + ',' + form.type + ',' + form.phone);
-                this.props.history.push('/chat');
+                GlobalAction.LoginAction(form);
+                //this.props.history.push('/chat');
             }
         });
     }
