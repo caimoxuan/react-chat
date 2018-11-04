@@ -43,13 +43,19 @@ export default class ChatArea extends React.Component {
 
         this.state.webSocket.onmessage = (event) => {
             let jsonMessage = JSON.parse(event.data);
-            this.state.info.forEach((value, index) => {
-                if(jsonMessage.msgId == value.msgId){
-                    let _info = this.state.info;
-                    _info[index].isLoading = false;
-                    this.setState({info: _info});
-                }
-            })
+            if(jsonMessage.dir == 'right') {
+                this.state.info.forEach((value, index) => {
+                    if (jsonMessage.msgId == value.msgId) {
+                        let _info = this.state.info;
+                        _info[index].isLoading = false;
+                        this.setState({info: _info});
+                    }
+                })
+            }else{
+                let _info = this.state.info;
+                _info.push(jsonMessage);
+                this.setState({info: _info});
+            }
         }
 
         this.state.webSocket.onclose = (event) => {
