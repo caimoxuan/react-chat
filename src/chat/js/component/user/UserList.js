@@ -11,7 +11,9 @@ export default class UserList extends React.Component {
         }
     }
 
-
+    handlUserConnect(user){
+        this.uList.push(user);
+    }
 
 
 
