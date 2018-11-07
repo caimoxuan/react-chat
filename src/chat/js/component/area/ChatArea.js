@@ -117,7 +117,7 @@ export default class ChatArea extends React.Component {
                         }
                     </div>
                     <div className="chat_send_head">
-                        <div className="chat_send_button" onClick={this.addMessage}>发送</div>
+                        <div className="chat_send_button" onClick={this.sendMessage}>发送</div>
                     </div>
                     <div className="chat_send_content">
                     <textarea
