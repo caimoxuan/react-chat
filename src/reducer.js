@@ -5,6 +5,7 @@
  */
 import {combineReducers} from 'redux';
 import {routerReducer as router} from 'react-router-redux';
+import {ADD_TODO, TOGGLE_TODO} from "./List/actionTypes";
 
 /**
  * App reducer maintain states to be shared across modules
@@ -13,9 +14,27 @@ import {routerReducer as router} from 'react-router-redux';
  * @param  {Object} action - Redux action
  * @return {Object}
  */
-const app = (state={city: 330100}, action) => {
-  return state;
+const app = (state = {city: 330100}, action) => {
+    return state;
 };
+
+const todos = (state = [], action) => {
+    switch (action.type) {
+        case ADD_TODO:
+            return [
+                ...state,
+                {
+                    id: action.id,
+                    completed: false,
+                    text: action.text,
+                }]
+        case TOGGLE_TODO:
+            return state.map(todo => (todo.id === action.id) ? {...todo, completed: !todo.completed} : todo)
+        default:
+            return state;
+    }
+
+}
 
 /**
  * This is a create reducer function
@@ -23,16 +42,15 @@ const app = (state={city: 330100}, action) => {
  * @param  {function} asyncReducers - asynchronously loaded recuders
  * @return {object} - root reducer
  */
-export default function createReducer(asyncReducers) {
-  /**
-   * Return root reducer
-   * Name of each leaf store should match Page Name or Functionality Name
-   */
-  return combineReducers({
-    // Permanent redux reducers
-    router,
-    app,
-    // Aync reducers
-    ...asyncReducers,
-  });
+export default function createReducer() {
+    /**
+     * Return root reducer
+     * Name of each leaf store should match Page Name or Functionality Name
+     */
+    return combineReducers({
+        // Permanent redux reducers
+        router,
+        app,
+        todos,
+    });
 }

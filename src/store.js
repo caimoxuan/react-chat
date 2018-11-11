@@ -21,9 +21,6 @@ export default function configureStore(initialState) {
   //   });
   // }
 
-  // Extensions
-  // Async reducer registry, adding an extra attribute to the store object
-  store.asyncReducers = {};
 
   return store;
 }

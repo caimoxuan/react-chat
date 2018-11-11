@@ -1,15 +1,12 @@
 import '../axios'
 import {message} from 'antd';
-import {createBrowserHistory as createHistory} from 'history';
 
-const history = createHistory();
 /** 登录返回用户基本信息 */
-export const LoginAction = function(data) {
+export const LoginAction = function(data, callback) {
     let api = '/accountLogin';
     window.Axios.post(api, data).then(function(res){
         if(res.data.success){
-            console.log('log success')
-            history.push('/chat');
+            callback(res.date);
         }else{
             message.error(res.data.message);
         }
@@ -19,11 +16,11 @@ export const LoginAction = function(data) {
     })
 };
 
-export const LogOut = function(){
+export const LogOut = function(callback){
     let api = '/logout';
     window.Axios.post(api).then(function(res){
         if(res.data.success){
-            history.push('/login');
+            callback(true);
         }
     }).catch(function(error){
         message.error('logout fail, please try later or close window directly');

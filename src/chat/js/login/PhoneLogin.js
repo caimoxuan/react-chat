@@ -23,8 +23,11 @@ class PhoneLogin extends React.Component {
                 let form = {'username': values['phone'],
                     'password': values['password'],
                     'type': 'phone'};
-                GlobalAction.LoginAction(form);
-                //this.props.history.push('/chat');
+                GlobalAction.LoginAction(form, (data) => {
+                    if(data.success){
+                        this.props.history.push("/chat");
+                    }
+                });
             }
         });
     }

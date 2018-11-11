@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Checkbox, Form, Icon, Input} from 'antd';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -25,6 +25,18 @@ class AccountPassLogin extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let form = {'username': values['email'],
+                    'password': values['password'],
+                    'type': 'account'};
+                GlobalAction.LoginAction(form, (data) => {
+                    if(data.success){
+                        this.props.history.push("/chat");
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -88,6 +100,6 @@ AccountPassLogin.propTypes = {
 
 const WrappedNormalLoginForm = Form.create()(AccountPassLogin);
 
-export default connect((state, props) => ({}), (dispatch) => ({
+export default withRouter(connect((state, props) => ({}), (dispatch) => ({
     indexAction: bindActionCreators(GlobalAction, dispatch),
-}))(WrappedNormalLoginForm);
+}))(WrappedNormalLoginForm));
