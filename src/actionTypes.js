@@ -5,3 +5,13 @@ export const FETCH_SOME_ASYNC_FAILURE = 'LIST/FETCH_SOME_ASYNC_FAILURE';
 
 export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
+
+//login
+export const UPDATE_LOGIN_USER = 'UPDATE_LOGIN_USER';
+export const UPDATE_LOGOUT_USER = 'UPDATE_LOGOUT_USER';
+
+
+//chat
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+

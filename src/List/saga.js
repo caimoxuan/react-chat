@@ -5,7 +5,7 @@ import {put, takeEvery} from 'redux-saga/effects';
 
 import {
   FETCH_SOME_ASYNC_REQUEST,
-} from './actionTypes';
+} from '../actionTypes';
 
 import {
   fetchSomeAsyncSucceed,

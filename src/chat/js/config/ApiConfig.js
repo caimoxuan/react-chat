@@ -2,7 +2,7 @@ import '../axios'
 import {message} from 'antd';
 
 /** 登录返回用户基本信息 */
-export const LoginAction = function(data, callback) {
+export const LoginApi = function(data, callback) {
     let api = '/accountLogin';
     window.Axios.post(api, data).then(function(res){
         if(res.data.success){
@@ -16,7 +16,7 @@ export const LoginAction = function(data, callback) {
     })
 };
 
-export const LogOut = function(callback){
+export const LogoutApi = function(callback){
     let api = '/logout';
     window.Axios.post(api).then(function(res){
         if(res.data.success){

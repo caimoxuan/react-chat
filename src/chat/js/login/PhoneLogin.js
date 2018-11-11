@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as GlobalAction from '../config/GlobalAction';
+import {LoginApi} from '../config/ApiConfig';
 
 const FormItem = Form.Item;
 
@@ -23,7 +23,7 @@ class PhoneLogin extends React.Component {
                 let form = {'username': values['phone'],
                     'password': values['password'],
                     'type': 'phone'};
-                GlobalAction.LoginAction(form, (data) => {
+                LoginApi(form, (data) => {
                     if(data.success){
                         this.props.history.push("/chat");
                     }
@@ -95,5 +95,5 @@ PhoneLogin.propTypes = {
 const WrappedNormalLoginForm = Form.create()(PhoneLogin);
 
 export default withRouter(connect((state, props) => ({}), (dispatch) => ({
-    indexAction: bindActionCreators(GlobalAction, dispatch),
+    indexAction: bindActionCreators(LoginApi, dispatch),
 }))(WrappedNormalLoginForm));

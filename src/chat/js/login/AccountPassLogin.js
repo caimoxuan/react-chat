@@ -4,7 +4,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
-import * as GlobalAction from '../config/GlobalAction';
+import {LoginApi} from '../config/ApiConfig';
 
 /**
  * Form Item
@@ -27,11 +27,13 @@ class AccountPassLogin extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let form = {'username': values['email'],
+                let form = {
+                    'username': values['email'],
                     'password': values['password'],
-                    'type': 'account'};
-                GlobalAction.LoginAction(form, (data) => {
-                    if(data.success){
+                    'type': 'account'
+                };
+                LoginApi(form, (data) => {
+                    if (data.success) {
                         this.props.history.push("/chat");
                     }
                 });
@@ -41,7 +43,7 @@ class AccountPassLogin extends React.Component {
 
     /**
      * @return {html}
-    */
+     */
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
@@ -101,5 +103,5 @@ AccountPassLogin.propTypes = {
 const WrappedNormalLoginForm = Form.create()(AccountPassLogin);
 
 export default withRouter(connect((state, props) => ({}), (dispatch) => ({
-    indexAction: bindActionCreators(GlobalAction, dispatch),
+    indexAction: bindActionCreators(LoginApi, dispatch),
 }))(WrappedNormalLoginForm));

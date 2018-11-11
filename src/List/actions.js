@@ -4,7 +4,7 @@ import {
     FETCH_SOME_ASYNC_FAILURE,
     ADD_TODO,
     TOGGLE_TODO,
-} from './actionTypes';
+} from '../actionTypes';
 
 var nextId = 0;
 export const addTodo = (text) => ({

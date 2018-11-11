@@ -42,7 +42,7 @@ export default class Router extends React.Component {
         });
         this.chatPage = lodable({
             loader: () => {
-                return import('./chat/js/component/area/ChatArea');
+                return import('./chat');
             },
             loading: () => {
                 return <div>Loading...</div>;

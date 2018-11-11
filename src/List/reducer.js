@@ -7,7 +7,7 @@ import {
     FETCH_SOME_ASYNC_FAILURE,
     TOGGLE_TODO,
     ADD_TODO,
-} from './actionTypes';
+} from '../actionTypes';
 
 /**
  * Initial state value of react store
