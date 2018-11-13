@@ -30,20 +30,26 @@ export default class ChatArea extends React.Component {
 
     componentDidMount() {
         this.state.webSocket = new WebSocket(config.chatSocketServerAddress);
-        this.state.webSocket.onerror = function(e){
+        this.state.webSocket.onerror = function (e) {
             message.error("can not connect to server!");
         }
 
         this.state.webSocket.onopen = () => {
             message.success("success connect to server!");
-            var data={"msgId":(new Date()).getTime(),"messageType":"LOGIN", "timeStamp":(new Date()).getTime(),"msgContext":"react user coming!", "sendUser":888};
+            var data = {
+                "msgId": (new Date()).getTime(),
+                "messageType": "LOGIN",
+                "timeStamp": (new Date()).getTime(),
+                "msgContext": "react user coming!",
+                "sendUser": 888
+            };
             var login = JSON.stringify(data);
             this.state.webSocket.send(login)
         }
 
         this.state.webSocket.onmessage = (event) => {
             let jsonMessage = JSON.parse(event.data);
-            if(jsonMessage.dir == 'right') {
+            if (jsonMessage.dir == 'right') {
                 this.state.info.forEach((value, index) => {
                     if (jsonMessage.msgId == value.msgId) {
                         let _info = this.state.info;
@@ -51,7 +57,7 @@ export default class ChatArea extends React.Component {
                         this.setState({info: _info});
                     }
                 })
-            }else{
+            } else {
                 let _info = this.state.info;
                 _info.push(jsonMessage);
                 this.setState({info: _info});
@@ -72,7 +78,7 @@ export default class ChatArea extends React.Component {
             this.setState({textContent: text});
             return;
         }
-        if(this.state.textContent.trim() == ''){
+        if (this.state.textContent.trim() == '') {
             return;
         }
 
