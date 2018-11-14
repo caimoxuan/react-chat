@@ -1,9 +1,8 @@
 import React from 'react'
-import {message} from 'antd';
 
 import TextMessage from '../message/TextMessage';
 import UserList from '../user/UserList';
-import config from '../../config/PropertiesConfig';
+import webSocket from '../../socket/WebSocket';
 
 import '../../../css/common/scroll.less';
 import '../../../css/chat/chat_window.less';
@@ -12,6 +11,7 @@ export default class ChatArea extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("chatserver:" + JSON.stringify(props))
         this.users = [{userId: 1, userName: "user@1"}, {userId: 2, userName: "user@2"}];
         this.state = {
             info: [],
@@ -29,45 +29,7 @@ export default class ChatArea extends React.Component {
     }
 
     componentDidMount() {
-        this.state.webSocket = new WebSocket(config.chatSocketServerAddress);
-        this.state.webSocket.onerror = function (e) {
-            message.error("can not connect to server!");
-        }
-
-        this.state.webSocket.onopen = () => {
-            message.success("success connect to server!");
-            var data = {
-                "msgId": (new Date()).getTime(),
-                "messageType": "LOGIN",
-                "timeStamp": (new Date()).getTime(),
-                "msgContext": "react user coming!",
-                "sendUser": 888
-            };
-            var login = JSON.stringify(data);
-            this.state.webSocket.send(login)
-        }
-
-        this.state.webSocket.onmessage = (event) => {
-            let jsonMessage = JSON.parse(event.data);
-            if (jsonMessage.dir == 'right') {
-                this.state.info.forEach((value, index) => {
-                    if (jsonMessage.msgId == value.msgId) {
-                        let _info = this.state.info;
-                        _info[index].isLoading = false;
-                        this.setState({info: _info});
-                    }
-                })
-            } else {
-                let _info = this.state.info;
-                _info.push(jsonMessage);
-                this.setState({info: _info});
-            }
-        }
-
-        this.state.webSocket.onclose = (event) => {
-            console.log("WebSocket is closed");
-        };
-
+        this.props.initWebSocket(webSocket);
     }
 
 

@@ -14,4 +14,5 @@ export const UPDATE_LOGOUT_USER = 'UPDATE_LOGOUT_USER';
 //chat
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+export const INIT_WEBSOCKET = 'INIT_WEBSOCKET';
 
