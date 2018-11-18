@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGE, SEND_MESSAGE, INIT_WEBSOCKET } from '../../../actionTypes';
+import {RECEIVE_MESSAGE, SEND_MESSAGE, INIT_WEBSOCKET, CHANGE_MESSAGE_LIST} from '../../../actionTypes';
 
 
 export const initWebSocketAction = (webSocket) => ({
@@ -15,4 +15,9 @@ export const sendMessageAction = (message) => ({
 export const onMessageAction = (message) => ({
     type: RECEIVE_MESSAGE,
     message: message,
+})
+
+export const changeMessageList = (messageList) => ({
+    type: CHANGE_MESSAGE_LIST,
+    messageList: messageList,
 })

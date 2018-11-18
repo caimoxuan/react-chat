@@ -1,6 +1,6 @@
-import { INIT_WEBSOCKET, RECEIVE_MESSAGE, SEND_MESSAGE } from "../../actionTypes";
+import { INIT_WEBSOCKET, RECEIVE_MESSAGE, SEND_MESSAGE, CHANGE_MESSAGE_LIST } from "../../actionTypes";
 
-export function charRedux(state={}, action) {
+export function chatRedux(state={}, action) {
     switch(action.type){
         case INIT_WEBSOCKET:
             return {
@@ -20,5 +20,16 @@ export function charRedux(state={}, action) {
             return {
                 ...state,
             }
+    }
+}
+
+export function messageListRedux(state=[], action) {
+    switch(action.type) {
+        case CHANGE_MESSAGE_LIST:
+            return [
+                ...action.messageList
+            ]
+        default:
+            return [];
     }
 }

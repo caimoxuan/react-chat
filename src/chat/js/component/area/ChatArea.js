@@ -63,14 +63,16 @@ export default class ChatArea extends React.Component {
             messageType: 'USER',
             msgContext: m ? m : 'test'
         }
-        this.state.webSocket.send(JSON.stringify(info_t))
         this.setState({score: this.state.score + 1})
-        let infoList = this.state.info;
+        let infoList = this.props.messageList;
         infoList.push(info_t);
-        this.setState({info: infoList, textContent: ''});
+        this.props.changeMessageList(infoList);
+        this.props.webSocket.send(JSON.stringify(info_t))
+        this.state.textContent = '';
     }
 
     render() {
+        let {messageList} = this.props;
         return (
             <div className="chat_panel">
                 <div className="list_panel">
@@ -79,7 +81,7 @@ export default class ChatArea extends React.Component {
                 <div className="chat_window">
                     <div style={style.messageBar} ref={node => this.scroll = node}>
                         {
-                            this.state.info.map(value => (
+                            (messageList || []).map(value => (
                                 <TextMessage key={value.msgId} content={value.msgContext} info={value}/>
                             ))
                         }
