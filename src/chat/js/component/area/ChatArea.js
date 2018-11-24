@@ -19,6 +19,7 @@ export default class ChatArea extends React.Component {
             scroll: {},
             textContent: '',
             score: 1,
+            roomId: 1,
             webSocket: {},
         };
     }
@@ -49,6 +50,10 @@ export default class ChatArea extends React.Component {
         }
     }
 
+    handlerToggleRoom = (roomInfo) => {
+        this.props.changeRoomInfo(roomInfo);
+    }
+
     addMessage = () => {
         let m = this.state.textContent;
         let info_t = {
@@ -64,24 +69,22 @@ export default class ChatArea extends React.Component {
             msgContext: m ? m : 'test'
         }
         this.setState({score: this.state.score + 1})
-        let infoList = this.props.messageList;
-        infoList.push(info_t);
-        this.props.changeMessageList(infoList);
+        this.props.addRoomMessage(this.props.roomInfo.roomId, info_t);
         this.props.webSocket.send(JSON.stringify(info_t))
         this.state.textContent = '';
     }
 
     render() {
-        let {messageList} = this.props;
+        let {messageStore, roomInfo} = this.props;
         return (
             <div className="chat_panel">
                 <div className="list_panel">
-                    <UserList/>
+                    <UserList toggleRoom={roomInfo => this.handlerToggleRoom(roomInfo)}/>
                 </div>
                 <div className="chat_window">
                     <div style={style.messageBar} ref={node => this.scroll = node}>
                         {
-                            (messageList || []).map(value => (
+                            (messageStore.get((roomInfo&&roomInfo.roomId||this.state.roomId)) || []).map(value => (
                                 <TextMessage key={value.msgId} content={value.msgContext} info={value}/>
                             ))
                         }

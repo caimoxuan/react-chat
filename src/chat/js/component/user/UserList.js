@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInlineBox from './UserInlineBox';
+import ChatRoom from '../area/ChatRoom';
 import '../../../css/chat/user_list.less';
 
 export default class UserList extends React.Component {
@@ -7,12 +7,12 @@ export default class UserList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            uList:[{userId: '123', userName: "测试人员1asdasdasdasdasdasdsa"},{userId: '234', userName: '测试人员2'}],
+            roomList:[{roomId: 1, roomName: "测试人员1asdasdasdasdasdasdsa"},{roomId: 2, roomName: '测试人员2'}],
         }
     }
 
     handlUserConnect(user){
-        this.uList.push(user);
+        this.roomList.push(user);
     }
 
 
@@ -22,9 +22,9 @@ export default class UserList extends React.Component {
             <div className="user_list">
                 <ul>
                 {
-                    this.state.uList.map(value => (
-                        <li className="li_user" key={value.userId}>
-                            <UserInlineBox key={value.userId} userInfo={value} />
+                    this.state.roomList.map(value => (
+                        <li className="li_user" key={value.roomId}>
+                            <ChatRoom key={value.roomId} roomInfo={value} toggleRoom={roomInfo => this.props.toggleRoom(roomInfo)}/>
                         </li>
                     ))
                 }

@@ -7,7 +7,7 @@ import {combineReducers} from 'redux';
 import {routerReducer as router} from 'react-router-redux';
 import {ADD_TODO, TOGGLE_TODO} from "./actionTypes";
 import {LoginRedux} from "./chat/reduxes/LoginRedux";
-import {chatRedux, messageListRedux} from './chat/reduxes/ChatRedux';
+import {chatRedux, changeRoomInfoRedux, messageRedux} from './chat/reduxes/ChatRedux';
 
 /**
  * App reducer maintain states to be shared across modules
@@ -56,6 +56,7 @@ export default function createReducer() {
         todos,
         LoginRedux,
         chatRedux,
-        messageListRedux,
+        changeRoomInfoRedux,
+        messageRedux,
     });
 }

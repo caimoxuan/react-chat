@@ -9,15 +9,15 @@ export default class UserInlineBox extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userId: props.userInfo.userId,
-            userName: props.userInfo.userName,
-            avatar: props.userInfo.avatar,
-            sex: props.userInfo.sex,
+            userId: props.roomInfo.roomId,
+            userName: props.roomInfo.roomName,
+            avatar: props.roomInfo.avatar,
+            sex: props.roomInfo.sex,
         }
     }
 
     handlerClick = () => {
-        console.log(this.state.userId);
+
     }
 
     handlerAvatar(){

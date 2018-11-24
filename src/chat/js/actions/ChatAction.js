@@ -1,4 +1,4 @@
-import {RECEIVE_MESSAGE, SEND_MESSAGE, INIT_WEBSOCKET, CHANGE_MESSAGE_LIST} from '../../../actionTypes';
+import {RECEIVE_MESSAGE, SEND_MESSAGE, INIT_WEBSOCKET, CHANGE_ROOM_INFO, ADD_ROOM_MESSAGE} from '../../../actionTypes';
 
 
 export const initWebSocketAction = (webSocket) => ({
@@ -17,7 +17,13 @@ export const onMessageAction = (message) => ({
     message: message,
 })
 
-export const changeMessageList = (messageList) => ({
-    type: CHANGE_MESSAGE_LIST,
-    messageList: messageList,
+export const changeRoomInfo = (roomInfo) => ({
+    type: CHANGE_ROOM_INFO,
+    roomInfo: roomInfo,
+})
+
+export const addRoomMessage = (roomId, message) => ({
+    type: ADD_ROOM_MESSAGE,
+    roomId: roomId,
+    message: message,
 })
