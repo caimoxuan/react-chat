@@ -20,22 +20,6 @@ webSocket.onopen = () => {
     webSocket.send(login)
 }
 
-webSocket.onmessage = (event) => {
-    let jsonMessage = JSON.parse(event.data);
-    if (jsonMessage.dir == 'right') {
-        this.state.info.forEach((value, index) => {
-            if (jsonMessage.msgId == value.msgId) {
-                let _info = this.state.info;
-                _info[index].isLoading = false;
-                this.setState({info: _info});
-            }
-        })
-    } else {
-        let _info = this.state.info;
-        _info.push(jsonMessage);
-        this.setState({info: _info});
-    }
-}
 
 webSocket.onclose = (event) => {
     console.log("WebSocket is closed");

@@ -30,7 +30,22 @@ export default class ChatArea extends React.Component {
     }
 
     componentDidMount() {
-        this.props.initWebSocket(webSocket);
+        this.props.initWebSocket(webSocket, function(){
+            this.props.webSocket.onmessage = (event) => {
+                let jsonMessage = JSON.parse(event.data);
+                if (jsonMessage.dir == 'right') {
+                    this.props.messageStore.get(this.props.roomInfo.roomId).forEach((value, index) => {
+                        if (jsonMessage.msgId == value.msgId) {
+                            let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
+                            messageList[index].isLoading = false;
+                            this.setState({info: _info});
+                        }
+                    })
+                } else {
+                    this.props.addRoomMessage(this.props.roomInfo.roomId, jsonMessage);
+                }
+            }
+        });
     }
 
 
