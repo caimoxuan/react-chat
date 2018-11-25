@@ -1,4 +1,4 @@
-import { initWebSocketAction, sendMessageAction, onMessageAction, changeRoomInfo,addRoomMessage  } from '../actions/ChatAction';
+import { initWebSocketAction, sendMessageAction, onMessageAction, changeRoomInfo,addRoomMessage,updateRoomMessage  } from '../actions/ChatAction';
 import { connect } from 'react-redux';
 import ChatArea from '../component/area/ChatArea';
 
@@ -16,6 +16,7 @@ const mapDispatchToPorps = dispatch => ({
     onMessgae: message => dispatch(onMessageAction(message)),
     changeRoomInfo: roomInfo => dispatch(changeRoomInfo(roomInfo)),
     addRoomMessage: (roomId, message) => dispatch(addRoomMessage(roomId, message)),
+    updateRoomMessage: (roomId, messageList) => dispatch(updateRoomMessage(roomId,messageList)),
 });
 
 export default connect(mapStateToProps, mapDispatchToPorps)(ChatArea);

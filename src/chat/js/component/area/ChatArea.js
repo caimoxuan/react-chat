@@ -34,9 +34,9 @@ export default class ChatArea extends React.Component {
             this.props.webSocket.onmessage = (event) => {
                 let jsonMessage = JSON.parse(event.data);
                 if (jsonMessage.dir == 'right') {
-                    this.props.messageStore.get(this.props.roomInfo.roomId).forEach((value, index) => {
+                    let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
+                    messageList.forEach((value, index) => {
                         if (jsonMessage.msgId == value.msgId) {
-                            let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
                             messageList[index].isLoading = false;
                             this.setState({info: _info});
                         }
@@ -46,6 +46,23 @@ export default class ChatArea extends React.Component {
                 }
             }
         });
+    }
+
+    updateMessage = () => {
+        let jsonMessage = {msgId: this.state.score - 1,dir: 'right',}
+        if (jsonMessage.dir == 'right') {
+            let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
+            messageList.forEach((value, index) => {
+                if (jsonMessage.msgId == value.msgId) {
+                    messageList[index].isLoading = false;
+                    console.log(messageList);
+                    this.props.updateRoomMessage(this.props.roomInfo.roomId, messageList);
+                }
+            })
+        } else {
+            console.log("test"+jsonMessage)
+            this.props.addRoomMessage(this.props.roomInfo.roomId, jsonMessage);
+        }
     }
 
 
@@ -106,6 +123,7 @@ export default class ChatArea extends React.Component {
                     </div>
                     <div className="chat_send_head">
                         <div className="chat_send_button" onClick={this.sendMessage}>发送</div>
+                        <div className="chat_send_button" onClick={this.updateMessage}>测试</div>
                     </div>
                     <div className="chat_send_content">
                     <textarea

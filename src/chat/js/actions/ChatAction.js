@@ -1,4 +1,9 @@
-import {RECEIVE_MESSAGE, SEND_MESSAGE, INIT_WEBSOCKET, CHANGE_ROOM_INFO, ADD_ROOM_MESSAGE} from '../../../actionTypes';
+import {RECEIVE_MESSAGE,
+    SEND_MESSAGE,
+    INIT_WEBSOCKET,
+    CHANGE_ROOM_INFO,
+    ADD_ROOM_MESSAGE,
+    UPDATE_ROOM_MESSAGE} from '../../../actionTypes';
 
 
 export const initWebSocketAction = (webSocket) => ({
@@ -26,4 +31,10 @@ export const addRoomMessage = (roomId, message) => ({
     type: ADD_ROOM_MESSAGE,
     roomId: roomId,
     message: message,
+})
+
+export const updateRoomMessage = (roomId, messageList) => ({
+    type: UPDATE_ROOM_MESSAGE,
+    roomId: roomId,
+    messageList: messageList,
 })
