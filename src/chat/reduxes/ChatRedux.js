@@ -4,7 +4,6 @@ import {INIT_WEBSOCKET,
     CHANGE_ROOM_INFO,
     ADD_ROOM_MESSAGE,
     UPDATE_ROOM_MESSAGE} from "../../actionTypes";
-import {Map} from 'Immutable'
 
 export function chatRedux(state = {}, action) {
     switch (action.type) {
@@ -41,17 +40,30 @@ export function changeRoomInfoRedux(state = {}, action) {
     }
 }
 
-export function messageRedux(state = new Map(), action) {
-    let copyState = state.asMutable();
+const initMessageState = {
+    byId: {
+    }
+}
+
+export function messageRedux(state = initMessageState, action) {
     switch (action.type) {
         case ADD_ROOM_MESSAGE:
-            let messageList = state.get(action.roomId) || [];
-            messageList.push(action.message);
-            copyState.set(action.roomId, messageList);
-            return copyState;
+            return {
+                byId: {
+                    ...state.byId,
+                    [action.roomId]: [
+                        ...state.byId[action.roomId] || [],
+                        action.message,
+                    ]
+                }
+            }
         case UPDATE_ROOM_MESSAGE:
-            copyState.set(action.roomId, action.messageList);
-            return copyState;
+            return {
+                byId: {
+                    ...state.byId,
+                    [action.roomId]: action.messageList
+                }
+            }
         default:
             return state;
     }

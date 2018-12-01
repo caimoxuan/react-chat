@@ -18,7 +18,6 @@ export default class Chat extends React.Component {
                     <Content>
                         <CharContainer />
                     </Content>
-                    <Footer>Footer</Footer>
                 </Layout>
             </div>
         )

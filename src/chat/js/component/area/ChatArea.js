@@ -30,7 +30,8 @@ export default class ChatArea extends React.Component {
     }
 
     componentDidMount() {
-        this.props.initWebSocket(webSocket, function(){
+        //初始化webSocket
+        this.props.initWebSocket(webSocket, function () {
             this.props.webSocket.onmessage = (event) => {
                 let jsonMessage = JSON.parse(event.data);
                 if (jsonMessage.dir == 'right') {
@@ -46,12 +47,14 @@ export default class ChatArea extends React.Component {
                 }
             }
         });
+        //初始化默认房间
+        this.props.changeRoomInfo({roomId: 1});
     }
 
     updateMessage = () => {
-        let jsonMessage = {msgId: this.state.score - 1,dir: 'right',}
+        let jsonMessage = {msgId: this.state.score - 1, dir: 'right',}
         if (jsonMessage.dir == 'right') {
-            let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
+            let messageList = this.props.messageStore.byId[this.props.roomInfo.roomId];
             messageList.forEach((value, index) => {
                 if (jsonMessage.msgId == value.msgId) {
                     messageList[index].isLoading = false;
@@ -60,7 +63,7 @@ export default class ChatArea extends React.Component {
                 }
             })
         } else {
-            console.log("test"+jsonMessage)
+            console.log("test" + jsonMessage)
             this.props.addRoomMessage(this.props.roomInfo.roomId, jsonMessage);
         }
     }
@@ -116,7 +119,7 @@ export default class ChatArea extends React.Component {
                 <div className="chat_window">
                     <div style={style.messageBar} ref={node => this.scroll = node}>
                         {
-                            (messageStore.get((roomInfo&&roomInfo.roomId||this.state.roomId)) || []).map(value => (
+                            (messageStore.byId[roomInfo && roomInfo.roomId || this.state.roomId] || []).map(value => (
                                 <TextMessage key={value.msgId} content={value.msgContext} info={value}/>
                             ))
                         }
@@ -147,8 +150,9 @@ const style = {
     messageBar: {
         width: '100%',
         height: window.innerHeight - 300,
-        overflowY: 'scroll',
+        overflowY: 'auto',
         padding: '5px',
         boxShadow: 'inset 0 0 3px 3px #ccc',
+        borderRadius: '0px 5px 5px 0px',
     }
 }
