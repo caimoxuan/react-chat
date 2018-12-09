@@ -56,8 +56,12 @@ module.exports = {
       },
     ],
   },
-
-  plugins: [
+    resolve: {
+        alias: {
+          '@': path.appSrc,
+        }
+    },
+    plugins: [
     new CleanWebpackPlugin(['dist'], {
       root: path.appPath,
       verbose: true,

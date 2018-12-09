@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {LogoutAction} from "../actions/LoginAction";
 import {Menu, Icon, Dropdown} from 'antd';
+import default_girl from '@/chat/img/girl_default.jpg';
+import default_boy from '@/chat/img/boy_default.jpg';
+
 
 class LoginUserHeader extends React.Component {
 
@@ -13,7 +16,7 @@ class LoginUserHeader extends React.Component {
                 <img style={logoStyle}
                      src=""/>
                 <div style={userStyle}>
-                    <img style={headStyle} src={user ? user.avatar : ""} />
+                    <img style={headStyle} src={user ? user.avatar : user && user.sex || '0' == '0' ? default_boy : default_girl} />
                         <Dropdown overlay={
                             <Menu>
                                 <Menu.Item key="0">
