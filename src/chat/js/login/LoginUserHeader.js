@@ -5,6 +5,7 @@ import {LogoutAction} from "../actions/LoginAction";
 import {Menu, Icon, Dropdown} from 'antd';
 import default_girl from '@/chat/img/girl_default.jpg';
 import default_boy from '@/chat/img/boy_default.jpg';
+import tmp_log from '@/chat/img/tmp_log.jpg';
 
 
 class LoginUserHeader extends React.Component {
@@ -14,7 +15,7 @@ class LoginUserHeader extends React.Component {
         return(
             <div className="headBar">
                 <img style={logoStyle}
-                     src=""/>
+                     src={tmp_log}/>
                 <div style={userStyle}>
                     <img style={headStyle} src={user ? user.avatar : user && user.sex || '0' == '0' ? default_boy : default_girl} />
                         <Dropdown overlay={
@@ -51,8 +52,8 @@ const headStyle = {
 }
 
 const logoStyle = {
-    width: "30px",
-    height: "30px",
+    width: "100px",
+    height: "64px",
 }
 
 const userStyle  = {

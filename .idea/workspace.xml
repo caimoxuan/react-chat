@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e68eab5-ae20-45aa-b242-88dce5697c75" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/chat/img/tmp_log.jpg" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.common.js" afterPath="$PROJECT_DIR$/config/webpack.common.js" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
       <change beforePath="$PROJECT_DIR$/src/chat/js/login/LoginUserHeader.js" afterPath="$PROJECT_DIR$/src/chat/js/login/LoginUserHeader.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -74,14 +75,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginUserHeader.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginUserHeader.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/chat/js/login/LoginUserHeader.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="1045">
+              <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/App.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -174,6 +185,7 @@
         <option value="$PROJECT_DIR$/src/chat/js/component/area/ChatArea.js" />
         <option value="$PROJECT_DIR$/config/webpack.common.js" />
         <option value="$PROJECT_DIR$/src/chat/js/login/LoginUserHeader.js" />
+        <option value="$PROJECT_DIR$/src/App.css" />
       </list>
     </option>
   </component>
@@ -344,6 +356,9 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\js_tool\react\react-starter\src\chat\img" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\js_tool\react\react-starter\src" />
     </key>
@@ -410,7 +425,7 @@
       <workItem from="1543664984888" duration="7520000" />
       <workItem from="1543733761603" duration="6206000" />
       <workItem from="1544345364933" duration="561000" />
-      <workItem from="1544352804432" duration="1735000" />
+      <workItem from="1544352804432" duration="4518000" />
     </task>
     <task id="LOCAL-00001" summary="add webSocket connect">
       <created>1541003081984</created>
@@ -531,11 +546,18 @@
       <option name="project" value="LOCAL" />
       <updated>1543756590674</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="config alias">
+      <created>1544356800476</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1544356800476</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160702000" />
+    <option name="totallyTimeSpent" value="163485000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="1370" height="772" extended-state="0" />
@@ -623,7 +645,8 @@
     <MESSAGE value="use immutable cannot update map data" />
     <MESSAGE value="chat message complete" />
     <MESSAGE value="update head style" />
-    <option name="LAST_COMMIT_MESSAGE" value="update head style" />
+    <MESSAGE value="config alias" />
+    <option name="LAST_COMMIT_MESSAGE" value="config alias" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -686,13 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="8" column="68" lean-forward="false" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -987,11 +1003,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chat/js/login/LoginUserHeader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="1045">
+          <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
