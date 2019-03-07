@@ -3,6 +3,7 @@ import React from 'react'
 import TextMessage from '../message/TextMessage';
 import UserList from '../user/UserList';
 import webSocket from '../../socket/WebSocket';
+import chatMessage from '../message/proto/ChatMessage_pb';
 
 import '../../../css/common/scroll.less';
 import '../../../css/chat/chat_window.less';
@@ -31,32 +32,53 @@ export default class ChatArea extends React.Component {
 
     componentDidMount() {
         //初始化webSocket
-        this.props.initWebSocket(webSocket, function () {
-            this.props.webSocket.onmessage = (event) => {
-                let jsonMessage = JSON.parse(event.data);
-                if (jsonMessage.dir == 'right') {
-                    let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
-                    messageList.forEach((value, index) => {
-                        if (jsonMessage.msgId == value.msgId) {
-                            messageList[index].isLoading = false;
-                            this.setState({info: _info});
-                        }
-                    })
-                } else {
-                    this.props.addRoomMessage(this.props.roomInfo.roomId, jsonMessage);
+        webSocket.onmessage = (event) => {
+            console.log("get websocket message ");
+            console.log(event.data);
+            let reader = new FileReader();
+            reader.readAsArrayBuffer(event.data);
+            reader.onload = (eve) => {
+                if(eve.target.readyState===FileReader.DONE){
+                    let buf = new Uint8Array(eve.target.result);
+                    let message = chatMessage.ChatMessage.deserializeBinary(buf).toObject();
+                    console.log(message);
+                    if(message.routerDispatch.fromUser === 'cmx'){
+                        let messageList = this.props.messageStore.byId[this.props.roomInfo.roomId];
+                        console.log(messageList);
+                            messageList.forEach((value, index) => {
+                                if (message.messageId === value.msgId) {
+                                    messageList[index].isLoading = false;
+                                    this.setState({info: messageList});
+                                    console.log(messageList);
+                                }
+                            })
+                    }
                 }
             }
-        });
+            // if (jsonMessage.dir === 'right') {
+            //     let messageList = this.props.messageStore.get(this.props.roomInfo.roomId);
+            //     messageList.forEach((value, index) => {
+            //         if (jsonMessage.msgId === value.msgId) {
+            //             messageList[index].isLoading = false;
+            //             this.setState({info: _info});
+            //         }
+            //     })
+            // } else {
+            //     this.props.addRoomMessage(this.props.roomInfo.roomId, jsonMessage);
+            // }
+        }
+        this.props.initWebSocket(webSocket);
+
         //初始化默认房间
         this.props.changeRoomInfo({roomId: 1});
     }
 
     updateMessage = () => {
         let jsonMessage = {msgId: this.state.score - 1, dir: 'right',}
-        if (jsonMessage.dir == 'right') {
+        if (jsonMessage.dir === 'right') {
             let messageList = this.props.messageStore.byId[this.props.roomInfo.roomId];
             messageList.forEach((value, index) => {
-                if (jsonMessage.msgId == value.msgId) {
+                if (jsonMessage.msgId === value.msgId) {
                     messageList[index].isLoading = false;
                     console.log(messageList);
                     this.props.updateRoomMessage(this.props.roomInfo.roomId, messageList);
@@ -71,16 +93,16 @@ export default class ChatArea extends React.Component {
 
     sendMessage = (e) => {
 
-        if (13 == e.keyCode && e.ctrlKey) {
+        if (13 === e.keyCode && e.ctrlKey) {
             let text = this.state.textContent;
             this.setState({textContent: text});
             return;
         }
-        if (this.state.textContent.trim() == '') {
+        if (this.state.textContent.trim() === '') {
             return;
         }
 
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             this.addMessage()
         }
     }
@@ -90,7 +112,6 @@ export default class ChatArea extends React.Component {
     }
 
     addMessage = () => {
-        let m = this.state.textContent;
         let info_t = {
             userName: "cmx",
             userId: new Date().getTime(),
@@ -101,11 +122,18 @@ export default class ChatArea extends React.Component {
             isLoading: true,
             sex: 0,
             messageType: 'USER',
-            msgContext: m ? m : 'test'
+            msgContext: 'test'
         }
-        this.setState({score: this.state.score + 1})
+        let message = new chatMessage.ChatMessage();
+        message.setMessageId(this.state.score);
+        message.setMessageContext(this.state.textContent);
+        message.setMessageType(1001);
+        let routerDispatch = new chatMessage.ChatMessage.RouterDispatch();
+        routerDispatch.setFromUser("cmx");
+        message.setRouterDispatch(routerDispatch);
+        this.setState({score: this.state.score + 1});
         this.props.addRoomMessage(this.props.roomInfo.roomId, info_t);
-        this.props.webSocket.send(JSON.stringify(info_t))
+        this.props.webSocket.send(message.serializeBinary());
         this.state.textContent = '';
     }
 
