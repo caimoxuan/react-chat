@@ -12,7 +12,6 @@ import {chatRedux, changeRoomInfoRedux, messageRedux} from './chat/reduxes/ChatR
 /**
  * App reducer maintain states to be shared across modules
  * @param  {Object} state - Previous leaf node of redux store
- * @param  {string} state.cityCode - City code, hangzhou => 330100
  * @param  {Object} action - Redux action
  * @return {Object}
  */

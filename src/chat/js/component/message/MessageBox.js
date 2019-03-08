@@ -40,8 +40,8 @@ export default class MessageBox extends React.Component{
     }
 
     render(){
-        let {userName, dir, avatar, timestamp, isLoading, sex} = this.info;
-        let time = this.formatTime(timestamp);
+        let {userName, dir, avatar, messageTimestamp, sex} = this.info;
+        let time = this.formatTime(messageTimestamp);
         return(
             <div data-flex={'dir:'+dir} className="message-list-item">
                 <div data-flex={'dir:'+dir} data-flex-box = '0' className = 'message-container'>

@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {LoginApi} from '../config/ApiConfig';
-import {LoginRedux} from "../../reduxes/LoginRedux";
 import {LoginAction} from "../../js/actions/LoginAction";
 
 const FormItem = Form.Item;
@@ -25,12 +24,14 @@ class PhoneLogin extends React.Component {
                 let form = {'username': values['phone'],
                     'password': values['password'],
                     'type': 'phone'};
-                LoginApi(form, (data) => {
-                    if(data.success){
-                        this.props.loginAction(data.userInfo);
-                        this.props.history.push("/chat");
-                    }
-                });
+                this.props.loginAction({userName:"cmx", userId:"123154123421"});
+                this.props.history.push("/chat");
+                // LoginApi(form, (data) => {
+                //     if(data.success){
+                //         this.props.loginAction(data.userInfo);
+                //         this.props.history.push("/chat");
+                //     }
+                // });
             }
         });
     }

@@ -1,4 +1,9 @@
-import { initWebSocketAction, sendMessageAction, onMessageAction, changeRoomInfo,addRoomMessage,updateRoomMessage  } from '../actions/ChatAction';
+import { initWebSocketAction,
+    sendMessageAction,
+    onMessageAction,
+    changeRoomInfo,
+    addRoomMessage,
+    updateRoomMessage } from '../actions/ChatAction';
 import { connect } from 'react-redux';
 import ChatArea from '../component/area/ChatArea';
 
@@ -7,8 +12,9 @@ const mapStateToProps = state => {
         webSocket: state.chatRedux.webSocket,
         messageStore: state.messageRedux,
         roomInfo: state.changeRoomInfoRedux,
+        userInfo: state.LoginRedux,
     }
-}
+};
 
 const mapDispatchToPorps = dispatch => ({
     initWebSocket: webSocket => dispatch(initWebSocketAction(webSocket)),
