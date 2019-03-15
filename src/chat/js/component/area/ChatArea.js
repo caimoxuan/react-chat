@@ -34,18 +34,17 @@ export default class ChatArea extends React.Component {
             let reader = new FileReader();
             reader.readAsArrayBuffer(event.data);
             reader.onload = (eve) => {
-                if(eve.target.readyState===FileReader.DONE){
+                if(eve.target.readyState === FileReader.DONE){
                     let buf = new Uint8Array(eve.target.result);
                     let message = chatMessage.ChatMessage.deserializeBinary(buf).toObject();
-                    console.log(message);
                     if(message.routerDispatch.fromUser === this.props.userInfo.userName){
                         let messageList = this.props.messageStore.byId[this.props.roomInfo.roomId];
-                            messageList.forEach((value, index) => {
-                                if (message.messageId === value.messageId) {
-                                    messageList[index].isLoading = false;
-                                    this.props.updateRoomMessage(this.props.roomInfo.roomId, messageList);
-                                }
-                            })
+                        messageList.forEach((value, index) => {
+                            if (message.messageId === value.messageId) {
+                                messageList[index].isLoading = false;
+                                this.props.updateRoomMessage(this.props.roomInfo.roomId, messageList);
+                            }
+                        })
                     }
                 }
             }
@@ -92,7 +91,7 @@ export default class ChatArea extends React.Component {
         this.props.addRoomMessage(this.props.roomInfo.roomId, msg);
         this.props.webSocket.send(message.serializeBinary());
         this.state.textContent = '';
-    }
+    };
 
     render() {
         let {messageStore, roomInfo} = this.props;
